@@ -48,6 +48,14 @@ def ret_list(message):
     ret = json.dumps(json_dic, indent=2, ensure_ascii=False)
     message.reply(ret)
 
+#help
+@respond_to("help")
+def ret_help(message):
+    ret = '{\n"list":"slack.jsonを渡す",\n "reload":"slack.jsonを書き換えたら使用\",\n "json xxx":"slack.jsonに追加",\n "light off":"ライト消す",\n "light on":"ライトつける",\n "night mode":"明かりをナイトモードにする",\n "too hot":"エアコンをつける",\n "air conditioning off":"エアコンOFF"\n }'
+    message.reply(ret)
+    #message.reply("hello")
+
+
 #slack.jsonを読み込む(先に読み込むことでdefault replyを早くする)
 @respond_to('reload')
 def reload_json(message):
@@ -103,3 +111,18 @@ def mention_func(message):
         subprocess.run("python BlackBeanControl.py -c light_orenge", shell=True)
     os.chdir(CURRENT_DIR)
     message.reply('ナイトモード') # メンション
+
+@respond_to('too hot')
+def mention_func(message):
+    os.chdir(BLACK_BEAN_DIR)
+    subprocess.run("python BlackBeanControl.py -c air_conditioning_power_on", shell=True)
+    os.chdir(CURRENT_DIR)
+    message.reply('暑いからエアコン点けといたよ')
+
+@respond_to('air conditioning off')
+def mention_func(message):
+    os.chdir(BLACK_BEAN_DIR)
+    subprocess.run("python BlackBeanControl.py -c air_conditioning_power_off", shell=True)
+    os.chdir(CURRENT_DIR)
+    message.reply('エアコン消したよ')
+
