@@ -1,1 +1,5 @@
-# test_slack_bot
+# slack_bot
+##attention
+基本的に学習リモコンのBlackBeamを操作することを想定しています。
+slackbotと同じ階層にgithubからBlackBeanControlをクローンして自分の環境を学習させれば似たように動かせます。
+
